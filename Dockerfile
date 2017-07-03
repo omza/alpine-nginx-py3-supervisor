@@ -10,11 +10,14 @@ MAINTAINER oliver@app-workshop.de
 # ARGs & ENVs
 # -------------------------------------------------------
 
+# Dirs & Copy Context
+# -------------------------------------------------------
+
+COPY .supervisord.conf /etc/supervisor/supervisord.conf
 
 # Volumes
 # -------------------------------------------------------
-
-VOLUME /var/log/nginx/
+VOLUME /var/log/
 VOLUME /usr/share/nginx/html/
 
 
@@ -27,8 +30,6 @@ RUN apk add --no-cache python3 && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi && \
     rm -r /root/.cache
 
-
-
 # Supervisor py3k (dev version)
 # ---------------------------------------------------------
 RUN apk update && \
@@ -37,11 +38,10 @@ RUN apk update && \
 	pip install --no-cache-dir setuptools-git && \
 	pip install --no-cache-dir git+https://github.com/orgsea/supervisor-py3k.git
 
-
 # Start & Stop
 # -----------------------------------------------------------
 EXPOSE 80 443
 
 STOPSIGNAL SIGTERM
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["supervisord", "--nodaemon"]
