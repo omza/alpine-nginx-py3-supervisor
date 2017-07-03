@@ -10,19 +10,15 @@ MAINTAINER oliver@app-workshop.de
 # Dirs & Copy Context
 # -------------------------------------------------------
 RUN mkdir -p /usr/log && \
-	mkdir -p /usr/conf && \
-	rm --force /usr/share/nginx/html/index.html && \
-	rm --force /usr/share/nginx/html/50x.html
+	mkdir -p /usr/conf
 
 COPY supervisord.conf /usr/conf/supervisord.conf
-COPY ./html/index.html /usr/share/nginx/html/index.html
-COPY ./html/50x.html /usr/share/nginx/html/50x.html
+COPY ./html/*.html /usr/share/nginx/html/
 
 # Volumes
 # -------------------------------------------------------
 VOLUME /usr/log/
 VOLUME /usr/conf/
-VOLUME /usr/share/nginx/html/
 
 
 # Python
