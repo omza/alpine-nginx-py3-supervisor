@@ -1,5 +1,12 @@
 # exclude everything
 *
+*/
+*.sln
+*
+*/
+!.gitignore
 
 # exception to the rule
 !Dockerfile
+!LICENSE
+!*.md
