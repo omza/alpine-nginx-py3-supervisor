@@ -13,7 +13,7 @@ RUN mkdir -p /usr/log && \
 	mkdir -p /usr/conf
 
 COPY supervisord.conf /usr/conf/supervisord.conf
-COPY ./html/*.html /usr/share/nginx/html/
+COPY ./html/*.html /usr/log/
 
 # Volumes
 # -------------------------------------------------------
