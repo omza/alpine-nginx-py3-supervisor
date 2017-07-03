@@ -12,12 +12,15 @@ MAINTAINER oliver@app-workshop.de
 
 # Dirs & Copy Context
 # -------------------------------------------------------
+RUN mkdir -p /usr/log && \
+	mkdir -p /usr/conf
 
-COPY .supervisord.conf /etc/supervisor/supervisord.conf
+COPY supervisord.conf /usr/conf/supervisord.conf
 
 # Volumes
 # -------------------------------------------------------
-VOLUME /var/log/
+VOLUME /usr/log/
+VOLUME /usr/conf/
 VOLUME /usr/share/nginx/html/
 
 
@@ -44,4 +47,4 @@ EXPOSE 80 443
 
 STOPSIGNAL SIGTERM
 
-ENTRYPOINT ["supervisord", "--nodaemon"]
+ENTRYPOINT ["supervisord", "--nodaemon", "-c", "/usr/conf/supervisord.conf"]
