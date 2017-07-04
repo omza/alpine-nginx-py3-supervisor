@@ -1,6 +1,7 @@
 # diboards.base image
 # alpine 3.5
-# python 3.6
+# python 3.6.1
+# pip 9.0.1
 # nginx stable
 # Supervisor py3k (dev version)
 
@@ -17,9 +18,8 @@ COPY ./html/*.html /usr/share/nginx/html/
 
 # Volumes
 # -------------------------------------------------------
-VOLUME /usr/log/
-VOLUME /usr/conf/
-
+# VOLUME /usr/log/
+# VOLUME /usr/conf/
 
 # Python
 # --------------------------------------------------------
