@@ -2,10 +2,6 @@
 
 > A mimimized Image based on nginx:alpine-stable with python 3.6.1 and dev version of Supervisor py3k
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-
 This image is intended for the rapid development and deployment of a web service in just one container . The image contains the following packages:
 
 - alpine 3.5
