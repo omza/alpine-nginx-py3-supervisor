@@ -117,14 +117,14 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 
 ENV NGINX_UPLOAD_VERSION 2.2.0
 
-RUN wget -P /tmp https://github.com/vkholodkov/nginx-upload-module/archive/$NGINX_UPLOAD_VERSION.tar.gz
-RUN tar -zxvf /tmp/$NGINX_UPLOAD_VERSION.tar.gz -C /tmp
+RUN wget -P /tmp http://www.grid.net.ru/nginx/download/nginx_upload_module-$NGINX_UPLOAD_VERSION.tar.gz
+RUN tar -zxvf /tmp/nginx_upload_module-$NGINX_UPLOAD_VERSION.tar.gz -C /tmp
 RUN cd /usr/src/nginx-$NGINX_VERSION \
 RUN ./configure --add-module=/tmp/nginx-upload-module-$NGINX_UPLOAD_VERSION \
 RUN make -j$(getconf _NPROCESSORS_ONLN) \
 RUN make install \
 RUN rm -rf /usr/src/nginx-$NGINX_VERSION \
-RUN rm -rf /tmp/$NGINX_UPLOAD_VERSION.tar.gz \
+RUN rm -rf /tmp/nginx_upload_module-$NGINX_UPLOAD_VERSION.tar.gz \
 RUN rm -rf /tmp/nginx-upload-module-$NGINX_UPLOAD_VERSION
 
 
