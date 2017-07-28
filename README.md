@@ -4,10 +4,11 @@
 
 This image is intended for the rapid development and deployment of a web service in just one container . The image contains the following packages:
 
-- alpine 3.5
+- alpine:3.5
 - python 3.6.1
 - pip 9.0.1
-- nginx 12.1
+- nginx 1.12.1
+- nginx-upload-module 2.2.0
 - [Supervisor py3k](https://github.com/lowcloudnine/supervisor-py3k) (dev version)
 
 
