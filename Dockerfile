@@ -109,13 +109,33 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& install -m755 objs/ngx_stream_geoip_module-debug.so /usr/lib/nginx/modules/ngx_stream_geoip_module-debug.so \
 	&& ln -s ../../usr/lib/nginx/modules /etc/nginx/modules \
 	&& strip /usr/sbin/nginx* \
-	&& strip /usr/lib/nginx/modules/*.so \
-	\
-	# Bring in gettext so we can get `envsubst`, then throw
-	# the rest away. To do this, we need to install `gettext`
-	# then move `envsubst` out of the way so `gettext` can
-	# be deleted completely, then move `envsubst` back.
-	&& apk add --no-cache --virtual .gettext gettext \
+	&& strip /usr/lib/nginx/modules/*.so
+
+
+# nginx-upload-module 
+# --------------------------------------------------------
+
+ENV NGINX_UPLOAD_VERSION 2.2.0
+
+RUN wget -P /tmp https://github.com/vkholodkov/nginx-upload-module/archive/$NGINX_UPLOAD_VERSION.tar.gz
+RUN tar -zxvf /tmp/$NGINX_UPLOAD_VERSION.tar.gz -C /tmp
+RUN cd /usr/src/nginx-$NGINX_VERSION \
+RUN ./configure --add-module=/tmp/nginx-upload-module-$NGINX_UPLOAD_VERSION \
+RUN make -j$(getconf _NPROCESSORS_ONLN) \
+RUN make install \
+RUN rm -rf /usr/src/nginx-$NGINX_VERSION \
+RUN rm -rf /tmp/$NGINX_UPLOAD_VERSION.tar.gz \
+RUN rm -rf /tmp/nginx-upload-module-$NGINX_UPLOAD_VERSION
+
+
+# nginx cleanup
+# -------------------------------------------------------
+# Bring in gettext so we can get `envsubst`, then throw
+# the rest away. To do this, we need to install `gettext`
+# then move `envsubst` out of the way so `gettext` can
+# be deleted completely, then move `envsubst` back.
+
+RUN apk add --no-cache --virtual .gettext gettext \
 	&& mv /usr/bin/envsubst /tmp/ \
 	\
 	&& runDeps="$( \
@@ -133,22 +153,6 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	# forward request and error logs to docker log collector
 	&& ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
-
-# nginx-upload-module 
-# --------------------------------------------------------
-
-ENV NGINX_UPLOAD_VERSION 2.2.0
-
-RUN wget -P /tmp https://github.com/vkholodkov/nginx-upload-module/archive/$NGINX_UPLOAD_VERSION.tar.gz \
-	&& tar -zxvf /tmp/$NGINX_UPLOAD_VERSION.tar.gz -C /tmp \
-	&& cd /usr/src/nginx-$NGINX_VERSION \
-	&& ./configure --add-module=/tmp/nginx-upload-module-$NGINX_UPLOAD_VERSION \
-	&& make -j$(getconf _NPROCESSORS_ONLN) \
-	&& make install \
-	&& rm -rf /usr/src/nginx-$NGINX_VERSION \
-	&& rm -rf /tmp/$NGINX_UPLOAD_VERSION.tar.gz \
-	&& rm -rf /tmp/nginx-upload-module-$NGINX_UPLOAD_VERSION
-	
 	
 
 # Python
