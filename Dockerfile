@@ -159,6 +159,7 @@ RUN mkdir -p /usr/log && \
 
 COPY supervisord.conf /usr/conf/supervisord.conf
 COPY ./html/*.html /usr/share/nginx/html/
+COPY nginx.upload.conf /etc/nginx/conf.d/nginx.upload.conf 
 
 # Volumes
 # -------------------------------------------------------
