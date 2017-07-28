@@ -1,4 +1,4 @@
-FROM nginx:nginx:stable-alpine
+FROM nginx:stable-alpine
 MAINTAINER oliver@app-workshop.de
 
 # Python

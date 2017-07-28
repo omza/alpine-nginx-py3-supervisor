@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Welcome to supervisord nginx!</title>
-<style>
-    body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-    }
-</style>
-</head>
-<body>
-<h1>Welcome to supervisord nginx!</h1>
-<p>If you see this page, the nginx web server is successfully installed and
-working. Further configuration is required.</p>
+    <head>
+        <title>Welcome to supervisord nginx!</title>
+        <style>
+            body {
+                width: 35em;
+                margin: 0 auto;
+                font-family: Tahoma, Verdana, Arial, sans-serif;
+            }
+        </style>
+    </head>
 
-<p>For online documentation and support please refer to
-<a href="http://nginx.org/">nginx.org</a>.<br/>
-Commercial support is available at
-<a href="http://nginx.com/">nginx.com</a>.</p>
+    <body>
+        <h1>Welcome to supervisord nginx!</h1>
+        <p>If you see this page, the nginx web server is successfully installed and
+        working. Further configuration is required.</p>
 
-<p><em>Thank you for using nginx.</em></p>
-</body>
+        <p>For online documentation and support please refer to
+        <a href="http://nginx.org/">nginx.org</a>.<br/>
+        Commercial support is available at
+        <a href="http://nginx.com/">nginx.com</a>.</p>
+
+        <p><em>Thank you for using nginx.</em></p>
+
+        <h2>Select files to upload to upload files</h2>
+        <form name="upload" method="POST" enctype="multipart/form-data" action="/upload">
+            <input type="file" name="file1"><br>
+            <input type="file" name="file2"><br>
+            <input type="file" name="file3"><br>
+            <input type="file" name="file4"><br>
+            <input type="file" name="file5"><br>
+            <input type="file" name="file6"><br>
+            <input type="submit" name="submit" value="Upload">
+            <input type="hidden" name="test" value="value">
+        </form>
+
+    </body>
 </html>
