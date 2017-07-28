@@ -110,7 +110,6 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 	&& ln -s ../../usr/lib/nginx/modules /etc/nginx/modules \
 	&& strip /usr/sbin/nginx* \
 	&& strip /usr/lib/nginx/modules/*.so \
-	&& rm -rf /usr/src/nginx-$NGINX_VERSION \
 	\
 	# Bring in gettext so we can get `envsubst`, then throw
 	# the rest away. To do this, we need to install `gettext`
@@ -138,6 +137,19 @@ RUN GPG_KEYS=B0F4253373F8F6F510D42178520A9993A1C052F8 \
 # nginx-upload-module 
 # --------------------------------------------------------
 
+ENV NGINX_UPLOAD_VERSION 2.2.0
+
+RUN wget -P /tmp https://github.com/vkholodkov/nginx-upload-module/archive/$NGINX_UPLOAD_VERSION.tar.gz \
+	&& tar -zxvf /tmp/$NGINX_UPLOAD_VERSION.tar.gz -C /tmp \
+	&& cd /usr/src/nginx-$NGINX_VERSION \
+	&& ./configure --add-module=/tmp/nginx-upload-module-$NGINX_UPLOAD_VERSION \
+	&& make -j$(getconf _NPROCESSORS_ONLN) \
+	&& make install \
+	&& rm -rf /usr/src/nginx-$NGINX_VERSION \
+	&& rm -rf /tmp/$NGINX_UPLOAD_VERSION.tar.gz \
+	&& rm -rf /tmp/nginx-upload-module-$NGINX_UPLOAD_VERSION
+	
+	
 
 # Python
 # --------------------------------------------------------
